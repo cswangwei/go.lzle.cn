@@ -98,6 +98,8 @@ $ vim s2-cluster/group_vars/all/conf.yaml
 ---
 cluster         : 's2-cc'
 conf:
+  ......
+  
   group:
       space_capacity: "{{ 100 * 1024 * 1024 * 1024 }}"
       num_capacity:   "{{ 50 * 1024 }}"
@@ -113,6 +115,8 @@ conf:
           std:
             - ['ATA', '.s2.cc',       ]
             - ['ATA', '.s2.cc',       ]
+            
+   ......
 ```
 
 Set our hosts in `<inventory_folder>/hosts.yaml` to use dynamic inventory.
@@ -143,9 +147,9 @@ zookeeper:
         - [172.18.2.4,  { zookeeper_id: 3 }]
 kafka-cluster-1:
     hosts:
-        172.18.2.23: { zookeeper_id: 1, broker_id: 0 }
-        172.18.2.24: { zookeeper_id: 2, broker_id: 1 }
-        172.18.2.28: { zookeeper_id: 3, broker_id: 2 }
+        172.18.2.2: { zookeeper_id: 1, broker_id: 0 }
+        172.18.2.3: { zookeeper_id: 2, broker_id: 1 }
+        172.18.2.4: { zookeeper_id: 3, broker_id: 2 }
 kafka:
     children:
         - kafka-cluster-1
@@ -310,7 +314,6 @@ $ vim s2-cluster/group_vars/all/stage.yaml
 stage: test
 ```
 
-
 6、Use inventory.py.
 
 When you run ansible, you must specify a inventory host file: `./inventory/<inventory_folder>/inventory.py`.<br>
@@ -320,11 +323,15 @@ When absent, use env-var ANSIBLE_INVENTORY:
 $ export ANSIBLE_INVENTORY=./inventories/s2-cluster/inventory.py.
 ```
 
-You need to copy inventory.py from baishan-3copy/inventory.py to your own inventory Directory.
+You need to copy inventory.py from baishan-3copy/inventory.py to your own inventory directory.
 
 You can enter your inventory directory, run python inventory.py --list --readable, to print configure list.
 
-7、Add ssh public key of the controling host to all hosts in cluster.
+```sh
+$ python inventories/s2-cluster/inventory.py --list --readable
+```
+
+7、Add ssh public key of the controlling host to all hosts in cluster.
 
 Init ssh key ( Input root password If asked ).
 
@@ -332,7 +339,12 @@ Init ssh key ( Input root password If asked ).
 $ sh init.sh -i inventories/s2-cluster/inventory.py -c key
 ```
 
-8、Init system environment.
+When connecting to other hosts, you are no longer prompted to enter a password, which means that the above script is executed successfully.
+
+
+8、Init system environment(need enter password to decrypt etcd/zookeeper account).
+
+Ask the etcd/zookeeper account password to continue.
 
 ```sh
 $ sh init.sh -i inventories/s2-cluster/inventory.py -b playbooks/init-system-env-common.yaml
