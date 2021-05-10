@@ -342,9 +342,9 @@ $ sh init.sh -i inventories/s2-cluster/inventory.py -c key
 When connecting to other hosts, you are no longer prompted to enter a password, which means that the above script is executed successfully.
 
 
-8、Init system environment(need enter password to decrypt etcd/zookeeper account).
+8、Init system environment (need enter password to decrypt etcd/zookeeper account).
 
-Ask the etcd/zookeeper account password to continue.
+Entry the password to continue.
 
 ```sh
 $ sh init.sh -i inventories/s2-cluster/inventory.py -b playbooks/init-system-env-common.yaml
@@ -352,11 +352,15 @@ $ sh init.sh -i inventories/s2-cluster/inventory.py -b playbooks/init-system-env
 
 9、Install s2.
 
-Install everything (Before doing anything, password is asked to decrypt etcd/zookeeper accounts ), and make sure no failure happens (failed: 0 for every host).
+Install everything and make sure no failure happens (failed: 0 for every host).
+
+Entry the password to continue.
 
 ```sh
 $ sh init.sh -i inventories/s2-cluster/inventory.py -b playbooks/install-s2.yaml
 ```
+
+This operation tasks a long time.
 
 About mounting block devices:
 
@@ -379,7 +383,7 @@ tmpfs          tmpfs     380M     0  380M    0% /run/user/0
 
 10、Configure s2.
 
-Run command `s2mgr.py` to entry management control.
+Run command `s2mgr.py` to entry management terminal.
 
 ```sh
 $ s2mgr.py
@@ -389,18 +393,17 @@ List nodes and set node role.
 
 ```sh
 $ node l
-$ node role set storage
+$ node role set Storage
+Change roles on 3 nodes? :y
 ```
 
 Add partitions (groups will be created in a few minutes).
 
 ```sh
-$ partition add --free 1g --size 1g
-$ partition ll
-$ group lsactive
+$ partition add --free 1g --size 1g -y
 ```
 
-Check the partition.
+Wait a few minutes and check the partition.
 
 ```shell
 $ partition ll
