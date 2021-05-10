@@ -64,7 +64,6 @@ $ git clone git@github.com:bsc-s2/s2-init.git
 
 Confirm `github.com` address host can ping.
 
-
 4、Install packages for controlling host (any host that has ssh access (with password) to all others in the cluster).
 Don't continue until you see the output `OK: main`.
 
@@ -72,6 +71,15 @@ Don't continue until you see the output `OK: main`.
 $ cd s2-init/
 $ sh init-ansible-server.sh
 ```
+
+The script execute `clone repositories` will cost a lot of time, you can manually download the repo to the local host，
+and upload files to `s2-init/source-code/` folder. repos list check `init-project-code.sh`.
+
+```sh
+$ cat init-project-code.sh
+```
+
+Do step 4 again.
 
 5、Create inventory files to describe the cluster in the inventories folder.
 
