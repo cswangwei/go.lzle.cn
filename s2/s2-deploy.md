@@ -15,7 +15,7 @@ Host address example:
 
 ## Installation
 
-### Each machine needs to complete the following operations.
+#### Each machine needs to complete the following operations.
 
 1、Disable firewalld and selinux. 
 
@@ -45,7 +45,7 @@ Run command to restart sshd.
 $ systemctl restart sshd
 ```
 
-### Choose one of the servers as the controlling host, where you do all the following steps.
+#### Choose one of the servers as the controlling host, where you do all the following steps.
 
 1、Install git package.
 
