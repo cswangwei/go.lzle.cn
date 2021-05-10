@@ -62,6 +62,9 @@ times during the installation. [See this](https://docs.github.com/en/github/auth
 $ git clone git@github.com:bsc-s2/s2-init.git
 ```
 
+Confirm `github.com` address host can ping.
+
+
 4、Install packages for controlling host (any host that has ssh access (with password) to all others in the cluster).
 Don't continue until you see the output `OK: main`.
 
